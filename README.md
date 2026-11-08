@@ -174,6 +174,52 @@ FILESYSTEM=/var ./scripts/resource_monitor.sh
 The implementation is designed for local Linux environments. Additional testing and hardening are required before production use.
 
 
+### Process & Service Health Monitoring
+
+**Script:** `scripts/process_service_monitor.sh`
+
+This component provides operational visibility into Linux systemd services, running processes, and system uptime.
+
+**Implemented capabilities:**
+
+- Monitor configured systemd services.
+- Detect inactive or failed services.
+- Identify top CPU-consuming processes.
+- Identify top memory-consuming processes.
+- Display system uptime.
+- Return monitoring-compatible exit codes.
+- Support external service configuration files.
+- Provide basic configuration validation and error handling.
+
+**Usage:**
+
+```bash
+./scripts/process_service_monitor.sh
+```
+
+**Custom service configuration:**
+
+```bash
+CONFIG_FILE=./config/services-test.conf ./scripts/process_service_monitor.sh
+```
+
+**Custom process count:**
+
+```bash
+TOP_PROCESSES=10 ./scripts/process_service_monitor.sh
+```
+
+**Exit codes:**
+
+- `0` — OK
+- `2` — CRITICAL
+- `3` — UNKNOWN
+
+**Validation:** A temporary systemd service can be used to simulate service availability, failure detection, and recovery without interrupting production workloads.
+
+**Limitations:** The current implementation requires systemd and reports service state rather than application-level health. Process utilization is displayed for diagnostics without individual process alert thresholds.
+
+
 ## 8. Getting Started
 
 ### Prerequisites

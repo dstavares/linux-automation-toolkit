@@ -138,6 +138,42 @@ The script uses standard Linux commands and does not require additional monitori
 
 **Note:** The current version is informational only. Automated health status classification, monitoring thresholds, and notifications are planned for subsequent releases.
 
+### Resource Monitoring
+
+**Script:** `scripts/resource_monitor.sh`
+
+This component monitors Linux server resource utilization and evaluates operational health using configurable thresholds.
+
+**Implemented capabilities:**
+- CPU utilization calculated from `/proc/stat`.
+- Memory utilization based on available system RAM.
+- Root filesystem disk utilization.
+- Configurable warning and critical thresholds.
+- Health classification: OK, WARNING, CRITICAL, and UNKNOWN.
+- Monitoring-compatible exit codes.
+- Basic error handling and configuration validation.
+
+**Usage:**
+
+```bash
+./scripts/resource_monitor.sh
+```
+
+**Custom thresholds:**
+
+```bash
+WARNING_THRESHOLD=70 CRITICAL_THRESHOLD=85 ./scripts/resource_monitor.sh
+```
+
+**Custom filesystem:**
+
+```bash
+FILESYSTEM=/var ./scripts/resource_monitor.sh
+```
+
+The implementation is designed for local Linux environments. Additional testing and hardening are required before production use.
+
+
 ## 8. Getting Started
 
 ### Prerequisites
